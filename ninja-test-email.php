@@ -8,6 +8,7 @@
  * Author URI: mailto:ninjatech.app@gmail.com
  * License: GPL v2 or later
  * Text Domain: ninja-test-email
+ * Domain Path: /languages
  * Requires PHP: 7.4
  *
  * @package NinjaTestEmail
@@ -19,8 +20,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-// define('NINJA_TEST_EMAIL_VERSION', '1.0.0');
-define('NINJA_TEST_EMAIL_VERSION', time());
+define('NINJA_TEST_EMAIL_VERSION', '1.0.0');
 define('NINJA_TEST_EMAIL_PATH', plugin_dir_path(__FILE__));
 define('NINJA_TEST_EMAIL_URL', plugin_dir_url(__FILE__));
 define('NINJA_TEST_EMAIL_FILE', __FILE__);

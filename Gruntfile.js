@@ -19,7 +19,11 @@ module.exports = function(grunt) {
                     '!webpack.config.js',
                     '!.babelrc',
                     '!**/*.md',
-                    'README.md'
+                    'README.md',
+                    '!composer.lock',
+                    '!postcss.config.js',
+                    '!test-settings.php',
+                    '!assets/tailwind.config.js'
                 ],
                 dest: 'build/ninja-test-email/'
             },
@@ -38,7 +42,11 @@ module.exports = function(grunt) {
                     '!webpack.config.js',
                     '!.babelrc',
                     '!**/*.md',
-                    'README.md'
+                    'README.md',
+                    '!composer.lock',
+                    '!postcss.config.js',
+                    '!test-settings.php',
+                    '!assets/tailwind.config.js'
                 ],
                 dest: 'E:/local-sites/app/public/wp-content/plugins/ninja-test-email'
             }

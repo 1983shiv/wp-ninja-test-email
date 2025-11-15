@@ -23,8 +23,8 @@ class Admin {
 
     public function add_admin_menu() {
         add_menu_page(
-            'Ninja Email Test',
-            'Ninja Email Test',
+            __('Ninja Email Test', 'ninja-test-email'),
+            __('Ninja Email Test', 'ninja-test-email'),
             'manage_options',
             'ninja-email-test',
             array($this, 'render_admin_page'),
@@ -34,8 +34,8 @@ class Admin {
 
         add_submenu_page(
             'ninja-email-test',
-            'Dashboard',
-            'Dashboard',
+            __('Dashboard', 'ninja-test-email'),
+            __('Dashboard', 'ninja-test-email'),
             'manage_options',
             'ninja-email-test',
             array($this, 'render_admin_page')
@@ -43,8 +43,8 @@ class Admin {
 
         add_submenu_page(
             'ninja-email-test',
-            'Settings',
-            'Settings',
+            __('Settings', 'ninja-test-email'),
+            __('Settings', 'ninja-test-email'),
             'manage_options',
             'ninja-email-test-settings',
             array($this, 'render_admin_page')
@@ -52,8 +52,8 @@ class Admin {
 
         add_submenu_page(
             'ninja-email-test',
-            'Email Logs',
-            'Email Logs',
+            __('Email Logs', 'ninja-test-email'),
+            __('Email Logs', 'ninja-test-email'),
             'manage_options',
             'ninja-email-test-logs',
             array($this, 'render_admin_page')
@@ -69,7 +69,8 @@ class Admin {
 
     public function display_admin_notices() {
         // Only show on plugin pages
-        if (!isset($_GET['page']) || strpos($_GET['page'], 'ninja-email-test') === false) {
+        $page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+        if (empty($page) || strpos($page, 'ninja-email-test') === false) {
             return;
         }
 
@@ -79,11 +80,12 @@ class Admin {
         if ($cron_scheduled) {
             $next_run = date('Y-m-d H:i:s', $cron_scheduled);
             echo '<div class="notice notice-info is-dismissible">';
-            echo '<p><strong>Cron Status:</strong> Daily cleanup is scheduled. Next run: ' . esc_html($next_run) . '</p>';
+            /* translators: %s: next scheduled run time */
+            echo '<p>' . sprintf(esc_html__('Cron Status: Daily cleanup is scheduled. Next run: %s', 'ninja-test-email'), '<strong>' . esc_html($next_run) . '</strong>') . '</p>';
             echo '</div>';
         } else {
             echo '<div class="notice notice-warning is-dismissible">';
-            echo '<p><strong>Warning:</strong> Daily cleanup cron is not scheduled. It should auto-schedule on next page load.</p>';
+            echo '<p>' . esc_html__('Warning: Daily cleanup cron is not scheduled. It should auto-schedule on next page load.', 'ninja-test-email') . '</p>';
             echo '</div>';
         }
     }

@@ -6,7 +6,7 @@ if (!defined('WPINC')) {
 <div class="wrap">
     <div id="ninja-email-test-admin-root"></div>
     <noscript>
-        <p>JavaScript is required to use this admin interface.</p>
+        <p><?php esc_html_e('JavaScript is required to use this admin interface.', 'ninja-test-email'); ?></p>
     </noscript>
     
     <!-- Developer Note: Assets are pre-compiled and included.

@@ -197,14 +197,16 @@ class EmailTester {
         $message = '<!DOCTYPE html>';
         $message .= '<html><head><meta charset="UTF-8"></head><body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">';
         $message .= '<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border: 1px solid #ddd;">';
-        $message .= '<h2 style="color: #0073aa;">Test Email from ' . esc_html($site_name) . '</h2>';
-        $message .= '<p><strong>Site URL:</strong> <a href="' . esc_url($site_url) . '">' . esc_html($site_url) . '</a></p>';
-        $message .= '<p><strong>Sent at:</strong> ' . esc_html($current_time) . '</p>';
+        /* translators: %s: site name */
+        $message .= '<h2 style="color: #0073aa;">' . sprintf(esc_html__('Test Email from %s', 'ninja-test-email'), esc_html($site_name)) . '</h2>';
+        $message .= '<p><strong>' . esc_html__('Site URL:', 'ninja-test-email') . '</strong> <a href="' . esc_url($site_url) . '">' . esc_html($site_url) . '</a></p>';
+        $message .= '<p><strong>' . esc_html__('Sent at:', 'ninja-test-email') . '</strong> ' . esc_html($current_time) . '</p>';
         $message .= '<div style="background-color: #fff; padding: 15px; margin: 20px 0; border-left: 4px solid #0073aa;">';
-        $message .= '<p>If you received this email, your WordPress installation can send emails successfully.</p>';
+        $message .= '<p>' . esc_html__('If you received this email, your WordPress installation can send emails successfully.', 'ninja-test-email') . '</p>';
         $message .= '</div>';
         $message .= '<hr style="border: none; border-top: 1px solid #ddd; margin: 20px 0;">';
-        $message .= '<p style="font-size: 12px; color: #666;">This email was sent by the Ninja Test Email plugin from ' . esc_html($site_name) . '</p>';
+        /* translators: %s: site name */
+        $message .= '<p style="font-size: 12px; color: #666;">' . sprintf(esc_html__('This email was sent by the Ninja Test Email plugin from %s', 'ninja-test-email'), esc_html($site_name)) . '</p>';
         $message .= '</div></body></html>';
 
         return $message;

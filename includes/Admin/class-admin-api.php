@@ -44,7 +44,7 @@ class Admin_API {
             $settings = $request->get_json_params();
             
             if (empty($settings)) {
-                return new \WP_Error('rest_invalid_data', 'Invalid settings data', array('status' => 400));
+                return new \WP_Error('rest_invalid_data', esc_html__('Invalid settings data', 'ninja-test-email'), array('status' => 400));
             }
             
             $sanitized_settings = Helpers::sanitize_array($settings);
@@ -67,13 +67,13 @@ class Admin_API {
     public static function send_test_email($request) {
         try {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+                return new \WP_Error('rest_forbidden', esc_html__('Permission denied', 'ninja-test-email'), array('status' => 403));
             }
             
             $params = $request->get_json_params();
             
             if (!isset($params['to']) || empty($params['to'])) {
-                return new \WP_Error('rest_invalid_data', 'Recipient email is required', array('status' => 400));
+                return new \WP_Error('rest_invalid_data', esc_html__('Recipient email is required', 'ninja-test-email'), array('status' => 400));
             }
             
             $to = sanitize_email($params['to']);
@@ -104,7 +104,7 @@ class Admin_API {
     public static function get_log_statistics($request) {
         try {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+                return new \WP_Error('rest_forbidden', esc_html__('Permission denied', 'ninja-test-email'), array('status' => 403));
             }
             
             $stats = LogManager::get_statistics();
@@ -121,7 +121,7 @@ class Admin_API {
     public static function get_logs($request) {
         try {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+                return new \WP_Error('rest_forbidden', esc_html__('Permission denied', 'ninja-test-email'), array('status' => 403));
             }
             
             $params = $request->get_params();
@@ -153,13 +153,13 @@ class Admin_API {
     public static function delete_log($request) {
         try {
             if (!current_user_can('manage_options')) {
-                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+                return new \WP_Error('rest_forbidden', esc_html__('Permission denied', 'ninja-test-email'), array('status' => 403));
             }
             
             $log_id = $request->get_param('id');
             
             if (empty($log_id)) {
-                return new \WP_Error('rest_invalid_data', 'Log ID is required', array('status' => 400));
+                return new \WP_Error('rest_invalid_data', esc_html__('Log ID is required', 'ninja-test-email'), array('status' => 400));
             }
             
             $result = LogManager::delete_log($log_id);
@@ -167,10 +167,10 @@ class Admin_API {
             if ($result) {
                 return new \WP_REST_Response(array(
                     'success' => true,
-                    'message' => 'Log deleted successfully',
+                    'message' => esc_html__('Log deleted successfully', 'ninja-test-email'),
                 ), 200);
             } else {
-                return new \WP_Error('rest_delete_failed', 'Failed to delete log', array('status' => 500));
+                return new \WP_Error('rest_delete_failed', esc_html__('Failed to delete log', 'ninja-test-email'), array('status' => 500));
             }
         } catch (\Exception $e) {
             return new \WP_Error('rest_error', $e->getMessage(), array('status' => 500));
