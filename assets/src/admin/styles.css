@@ -1,0 +1,8 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Admin specific styles */
+#ninja-email-test-admin-root {
+    margin-top: 20px;
+}

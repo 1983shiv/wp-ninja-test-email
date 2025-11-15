@@ -1,0 +1,18 @@
+# Ninja Email Test Translation Template
+msgid ""
+msgstr ""
+"Project-Id-Version: Ninja Email Test 1.0.0\n"
+"POT-Creation-Date: 2025-10-14 00:00+0000\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+msgid "Ninja Email Test"
+msgstr ""
+
+msgid "Dashboard"
+msgstr ""
+
+msgid "Settings"
+msgstr ""
