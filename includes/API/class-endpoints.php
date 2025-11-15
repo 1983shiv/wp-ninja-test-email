@@ -79,6 +79,30 @@ class Endpoints {
 
         register_rest_route(
             $this->namespace,
+            '/logs',
+            array(
+                'methods'             => 'GET',
+                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_logs'),
+                'permission_callback' => function() {
+                    return current_user_can('manage_options');
+                },
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
+            '/logs/(?P<id>\d+)',
+            array(
+                'methods'             => 'DELETE',
+                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'delete_log'),
+                'permission_callback' => function() {
+                    return current_user_can('manage_options');
+                },
+            )
+        );
+
+        register_rest_route(
+            $this->namespace,
             '/data',
             array(
                 'methods'             => 'GET',

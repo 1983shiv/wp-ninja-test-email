@@ -117,4 +117,63 @@ class Admin_API {
             return new \WP_Error('rest_error', $e->getMessage(), array('status' => 500));
         }
     }
+
+    public static function get_logs($request) {
+        try {
+            if (!current_user_can('manage_options')) {
+                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+            }
+            
+            $params = $request->get_params();
+            
+            $args = array(
+                'search'   => isset($params['search']) ? sanitize_text_field($params['search']) : '',
+                'orderby'  => isset($params['orderby']) ? sanitize_text_field($params['orderby']) : 'time',
+                'order'    => isset($params['order']) ? sanitize_text_field($params['order']) : 'DESC',
+                'per_page' => isset($params['per_page']) ? absint($params['per_page']) : 10,
+                'page'     => isset($params['page']) ? absint($params['page']) : 1,
+            );
+            
+            $logs = LogManager::get_logs($args);
+            $total = LogManager::get_total_count($args['search']);
+            
+            return new \WP_REST_Response(array(
+                'success'    => true,
+                'logs'       => $logs,
+                'total'      => $total,
+                'total_pages' => ceil($total / $args['per_page']),
+                'current_page' => $args['page'],
+                'per_page'   => $args['per_page'],
+            ), 200);
+        } catch (\Exception $e) {
+            return new \WP_Error('rest_error', $e->getMessage(), array('status' => 500));
+        }
+    }
+
+    public static function delete_log($request) {
+        try {
+            if (!current_user_can('manage_options')) {
+                return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
+            }
+            
+            $log_id = $request->get_param('id');
+            
+            if (empty($log_id)) {
+                return new \WP_Error('rest_invalid_data', 'Log ID is required', array('status' => 400));
+            }
+            
+            $result = LogManager::delete_log($log_id);
+            
+            if ($result) {
+                return new \WP_REST_Response(array(
+                    'success' => true,
+                    'message' => 'Log deleted successfully',
+                ), 200);
+            } else {
+                return new \WP_Error('rest_delete_failed', 'Failed to delete log', array('status' => 500));
+            }
+        } catch (\Exception $e) {
+            return new \WP_Error('rest_error', $e->getMessage(), array('status' => 500));
+        }
+    }
 }

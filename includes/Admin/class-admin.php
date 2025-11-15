@@ -49,6 +49,15 @@ class Admin {
             'ninja-email-test-settings',
             array($this, 'render_admin_page')
         );
+
+        add_submenu_page(
+            'ninja-email-test',
+            'Email Logs',
+            'Email Logs',
+            'manage_options',
+            'ninja-email-test-logs',
+            array($this, 'render_admin_page')
+        );
     }
 
     public function verify_cron_scheduled() {
