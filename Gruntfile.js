@@ -17,7 +17,9 @@ module.exports = function(grunt) {
                     '!package.json',
                     '!package-lock.json',
                     '!webpack.config.js',
-                    '!.babelrc'
+                    '!.babelrc',
+                    '!**/*.md',
+                    'README.md'
                 ],
                 dest: 'build/ninja-test-email/'
             },
@@ -34,7 +36,9 @@ module.exports = function(grunt) {
                     '!package.json',
                     '!package-lock.json',
                     '!webpack.config.js',
-                    '!.babelrc'
+                    '!.babelrc',
+                    '!**/*.md',
+                    'README.md'
                 ],
                 dest: 'E:/local-sites/app/public/wp-content/plugins/ninja-test-email'
             }
