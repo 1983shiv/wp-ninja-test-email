@@ -51,6 +51,7 @@ class EmailTester {
             return array(
                 'success' => true,
                 'message' => sprintf(
+                    /* translators: %s is the recipient email address */
                     __('Test email sent successfully to %s', 'ninja-test-email'),
                     $to
                 )
@@ -172,6 +173,7 @@ class EmailTester {
             return array(
                 'success' => true,
                 'message' => sprintf(
+                    /* translators: %s is the recipient email address */
                     __('HTML test email sent successfully to %s', 'ninja-test-email'),
                     $to
                 )

@@ -69,7 +69,8 @@ class Admin {
 
     public function display_admin_notices() {
         // Only show on plugin pages
-        $page = isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '';
+        // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading GET parameter for admin notice display only, no action taken
+        $page = isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : '';
         if (empty($page) || strpos($page, 'ninja-email-test') === false) {
             return;
         }
@@ -78,7 +79,7 @@ class Admin {
         $cron_scheduled = wp_next_scheduled('ninja_test_email_daily_cleanup');
         
         if ($cron_scheduled) {
-            $next_run = date('Y-m-d H:i:s', $cron_scheduled);
+            $next_run = gmdate('Y-m-d H:i:s', $cron_scheduled);
             echo '<div class="notice notice-info is-dismissible">';
             /* translators: %s: next scheduled run time */
             echo '<p>' . sprintf(esc_html__('Cron Status: Daily cleanup is scheduled. Next run: %s', 'ninja-test-email'), '<strong>' . esc_html($next_run) . '</strong>') . '</p>';
@@ -123,7 +124,8 @@ class Admin {
                 'ajaxUrl'     => admin_url('admin-ajax.php'),
                 'restUrl'     => rest_url('ninja-test-email/v1'),
                 'nonce'       => wp_create_nonce('wp_rest'),
-                'currentPage' => isset($_GET['page']) ? sanitize_text_field($_GET['page']) : '',
+                // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Reading GET parameter for display only
+                'currentPage' => isset($_GET['page']) ? sanitize_text_field(wp_unslash($_GET['page'])) : '',
                 'userEmail'   => wp_get_current_user()->user_email,
             )
         );

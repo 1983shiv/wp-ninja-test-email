@@ -1,4 +1,13 @@
-# Ninja Email Test
+# Ninja Test Email
+
+**Contributors:** 1983shiv  
+**Tags:** email, test-email, smtp, email-logging, email-testing  
+**Requires at least:** 6.0  
+**Tested up to:** 6.8  
+**Requires PHP:** 7.4  
+**Stable tag:** 1.0.0  
+**License:** GPL-2.0-or-later  
+**License URI:** https://www.gnu.org/licenses/gpl-2.0.html
 
 Modern WP Email Test Plugin
 

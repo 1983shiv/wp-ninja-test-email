@@ -5,7 +5,7 @@
  * Description: Modern WP Test Email Plugin
  * Version: 1.0.0
  * Author: Shiv Srivastava
- * Author URI: mailto:ninjatech.app@gmail.com
+ * Author URI: https://github.com/1983shiv
  * License: GPL v2 or later
  * Text Domain: ninja-test-email
  * Domain Path: /languages

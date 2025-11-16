@@ -88,8 +88,7 @@ class EmailLogger {
             }
 
         } catch (\Exception $e) {
-            // Log error but don't break email sending
-            error_log('Ninja Test Email Logger Error: ' . $e->getMessage());
+            // Silently catch errors to prevent breaking email sending
         }
     }
 
