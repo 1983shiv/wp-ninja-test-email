@@ -4,12 +4,13 @@
  * 
  * Handles sending test emails with validation and error handling
  *
- * @package NinjaTestEmail\Core
+ * @package Ninja_KNP\Core
  */
 
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-class EmailTester {
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Email_Tester')) {
+    class Ninja_KNP_Email_Tester {
     
     /**
      * Set email content type to HTML
@@ -219,3 +220,5 @@ class EmailTester {
         return $message;
     }
 }
+}
+

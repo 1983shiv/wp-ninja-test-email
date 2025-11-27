@@ -5,12 +5,14 @@
  * 
  * Handles all database operations for email logs
  *
- * @package NinjaTestEmail\Utils
+ * @package Ninja_KNP\Utils
  */
 
-namespace NinjaTestEmail\Utils;
+namespace Ninja_KNP\Utils;
 
-class LogManager
+
+if (!class_exists('Ninja_KNP\Utils\Ninja_KNP_Log_Manager')) {
+class Ninja_KNP_Log_Manager
 {
 
     /**
@@ -21,7 +23,7 @@ class LogManager
     public static function get_table_name()
     {
         global $wpdb;
-        return $wpdb->prefix . 'ninja_test_email_logs';
+        return $wpdb->prefix . 'ninja_knp_logs';
     }
 
     /**
@@ -103,7 +105,7 @@ class LogManager
         $offset = ($page - 1) * $per_page;
 
         // Build query safely - orderby and order are validated against whitelist
-        $table = $wpdb->prefix . 'ninja_test_email_logs';
+        $table = $wpdb->prefix . 'ninja_knp_logs';
 
         // $where MUST be a complete prebuilt safe SQL fragment or empty
         $where = $where ? $where : '';
@@ -156,7 +158,7 @@ class LogManager
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
             $count = $wpdb->get_var(
                 $wpdb->prepare(
-                    "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_test_email_logs WHERE to_email LIKE %s OR subject LIKE %s OR body LIKE %s",
+                    "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_knp_logs WHERE to_email LIKE %s OR subject LIKE %s OR body LIKE %s",
                     $search,
                     $search,
                     $search
@@ -164,7 +166,7 @@ class LogManager
             );
         } else {
             // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
-            $count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}ninja_test_email_logs");
+            $count = $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->prefix}ninja_knp_logs");
         }
 
         return absint($count);
@@ -183,7 +185,7 @@ class LogManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         return $wpdb->get_row(
-            $wpdb->prepare("SELECT * FROM {$wpdb->prefix}ninja_test_email_logs WHERE id = %d", absint($log_id)),
+            $wpdb->prepare("SELECT * FROM {$wpdb->prefix}ninja_knp_logs WHERE id = %d", absint($log_id)),
             OBJECT
         );
     }
@@ -225,7 +227,7 @@ class LogManager
 
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         $result = $wpdb->query(
-            $wpdb->prepare("DELETE FROM {$wpdb->prefix}ninja_test_email_logs WHERE time < %s", $date)
+            $wpdb->prepare("DELETE FROM {$wpdb->prefix}ninja_knp_logs WHERE time < %s", $date)
         );
 
         return $result;
@@ -241,7 +243,7 @@ class LogManager
         global $wpdb;
         $table_name = self::get_table_name();
 
-        return $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}ninja_test_email_logs");
+        return $wpdb->query("TRUNCATE TABLE {$wpdb->prefix}ninja_knp_logs");
     }
 
     /**
@@ -259,7 +261,7 @@ class LogManager
         // Get count by status
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         $status_counts = $wpdb->get_results(
-            "SELECT status, COUNT(*) as count FROM {$wpdb->prefix}ninja_test_email_logs GROUP BY status",
+            "SELECT status, COUNT(*) as count FROM {$wpdb->prefix}ninja_knp_logs GROUP BY status",
             OBJECT_K
         );
 
@@ -267,7 +269,7 @@ class LogManager
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         $today_count = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_test_email_logs WHERE DATE(time) = %s",
+                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_knp_logs WHERE DATE(time) = %s",
                 current_time('Y-m-d')
             )
         );
@@ -276,7 +278,7 @@ class LogManager
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         $week_count = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_test_email_logs WHERE time >= %s",
+                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_knp_logs WHERE time >= %s",
                 gmdate('Y-m-d H:i:s', strtotime('-7 days'))
             )
         );
@@ -285,7 +287,7 @@ class LogManager
         // phpcs:ignore WordPress.DB.DirectDatabaseQuery.DirectQuery,WordPress.DB.DirectDatabaseQuery.NoCaching -- Custom table requires direct query
         $month_count = $wpdb->get_var(
             $wpdb->prepare(
-                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_test_email_logs WHERE time >= %s",
+                "SELECT COUNT(*) FROM {$wpdb->prefix}ninja_knp_logs WHERE time >= %s",
                 gmdate('Y-m-d H:i:s', strtotime('-30 days'))
             )
         );
@@ -298,4 +300,9 @@ class LogManager
             'by_status'    => $status_counts,
         );
     }
+}
+
+
+
+
 }

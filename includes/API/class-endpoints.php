@@ -1,18 +1,20 @@
 <?php
-namespace NinjaTestEmail\API;
+namespace Ninja_KNP\API;
 
-use NinjaTestEmail\Utils\Singleton;
-use NinjaTestEmail\Core\Loader;
-use NinjaTestEmail\Admin\Admin_API;
-use NinjaTestEmail\Frontend\Frontend_API;
+use Ninja_KNP\Utils\Ninja_KNP_Singleton;
+use Ninja_KNP\Core\Ninja_KNP_Loader;
+use Ninja_KNP\Admin\Ninja_KNP_Admin_API;
+use Ninja_KNP\Frontend\Ninja_KNP_Frontend_API;
 
-class Endpoints {
-    use Singleton;
+
+if (!class_exists('Ninja_KNP\API\Ninja_KNP_Endpoints')) {
+class Ninja_KNP_Endpoints {
+    use Ninja_KNP_Singleton;
 
     protected $loader;
-    protected $namespace = 'ninja-test-email/v1';
+    protected $namespace = 'ninja-knp/v1';
 
-    private function __construct(Loader $loader) {
+    private function __construct(Ninja_KNP_Loader $loader) {
         $this->loader = $loader;
         $this->register_hooks();
     }
@@ -47,12 +49,12 @@ class Endpoints {
             array(
                 array(
                     'methods'             => 'GET',
-                    'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_settings'),
+                    'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'get_settings'),
                     'permission_callback' => array($this, 'check_admin_permission'),
                 ),
                 array(
                     'methods'             => 'POST',
-                    'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'update_settings'),
+                    'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'update_settings'),
                     'permission_callback' => array($this, 'check_admin_permission'),
                 ),
             )
@@ -63,7 +65,7 @@ class Endpoints {
             '/test-email',
             array(
                 'methods'             => 'POST',
-                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'send_test_email'),
+                'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'send_test_email'),
                 'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
@@ -73,7 +75,7 @@ class Endpoints {
             '/logs/stats',
             array(
                 'methods'             => 'GET',
-                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_log_statistics'),
+                'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'get_log_statistics'),
                 'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
@@ -83,7 +85,7 @@ class Endpoints {
             '/logs',
             array(
                 'methods'             => 'GET',
-                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_logs'),
+                'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'get_logs'),
                 'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
@@ -93,7 +95,7 @@ class Endpoints {
             '/logs/(?P<id>\\d+)',
             array(
                 'methods'             => 'DELETE',
-                'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'delete_log'),
+                'callback'            => array('Ninja_KNP\\Admin\\Ninja_KNP_Admin_API', 'delete_log'),
                 'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
@@ -103,7 +105,7 @@ class Endpoints {
             '/data',
             array(
                 'methods'             => 'GET',
-                'callback'            => array('NinjaTestEmail\\Frontend\\Frontend_API', 'get_data'),
+                'callback'            => array('Ninja_KNP\\Frontend\\Ninja_KNP_Frontend_API', 'get_data'),
                 'permission_callback' => '__return_true',
             )
         );
@@ -113,7 +115,7 @@ class Endpoints {
             '/submit',
             array(
                 'methods'             => 'POST',
-                'callback'            => array('NinjaTestEmail\\Frontend\\Frontend_API', 'submit_form'),
+                'callback'            => array('Ninja_KNP\\Frontend\\Ninja_KNP_Frontend_API', 'submit_form'),
                 'permission_callback' => '__return_true',
             )
         );
@@ -122,7 +124,7 @@ class Endpoints {
     public function health_check() {
         return array(
             'status'    => 'ok',
-            'version'   => NINJA_TEST_EMAIL_VERSION,
+            'version'   => NINJA_KNP_VERSION,
             'timestamp' => current_time('mysql'),
             'endpoints' => array(
                 'health'   => rest_url($this->namespace . '/health'),
@@ -132,4 +134,8 @@ class Endpoints {
             ),
         );
     }
+}
+
+
+
 }

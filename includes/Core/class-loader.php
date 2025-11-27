@@ -1,7 +1,8 @@
 <?php
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-class Loader {
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Loader')) {
+    class Ninja_KNP_Loader {
     protected $actions;
     protected $filters;
 
@@ -49,3 +50,5 @@ class Loader {
         }
     }
 }
+}
+

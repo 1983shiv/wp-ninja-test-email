@@ -12,3 +12,4 @@ if (!defined('WPINC')) {
     <!-- Developer Note: Assets are pre-compiled and included.
          To customize, edit files in assets/src/ and run: npm run build -->
 </div>
+

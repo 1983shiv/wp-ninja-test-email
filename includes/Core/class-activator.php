@@ -1,10 +1,11 @@
 <?php
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-class Activator {
-    public static function activate() {
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Activator')) {
+    class Ninja_KNP_Activator {
+        public static function activate() {
         global $wpdb;
-        $table_name = $wpdb->prefix . 'ninja_test_email_logs';
+        $table_name = $wpdb->prefix . 'ninja_knp_logs';
 
         $charset_collate = $wpdb->get_charset_collate();
 
@@ -26,16 +27,18 @@ class Activator {
             'admin_capability' => 'manage_options',
         );
         
-        if (!get_option('ninja_test_email_options')) {
-            add_option('ninja_test_email_options', $default_options);
+        if (!get_option('ninja_knp_options')) {
+            add_option('ninja_knp_options', $default_options);
         }
         
         // Schedule daily cleanup cron job
-        if (!wp_next_scheduled('ninja_test_email_daily_cleanup')) {
-            wp_schedule_event(time(), 'daily', 'ninja_test_email_daily_cleanup');
+        if (!wp_next_scheduled('ninja_knp_daily_cleanup')) {
+            wp_schedule_event(time(), 'daily', 'ninja_knp_daily_cleanup');
         }
-        
+
         flush_rewrite_rules();
-        do_action('ninja_test_email_activated');
+        do_action('ninja_knp_activated');
     }
 }
+}
+

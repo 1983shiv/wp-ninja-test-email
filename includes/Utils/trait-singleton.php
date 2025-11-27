@@ -1,7 +1,9 @@
 <?php
-namespace NinjaTestEmail\Utils;
+namespace Ninja_KNP\Utils;
 
-trait Singleton {
+
+if (!trait_exists('Ninja_KNP\Utils\Ninja_KNP_Singleton')) {
+trait Ninja_KNP_Singleton {
     private static $instances = array();
 
     protected function __construct() {}
@@ -21,4 +23,8 @@ trait Singleton {
 
         return self::$instances[$class];
     }
+}
+
+
+
 }

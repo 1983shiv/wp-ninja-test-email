@@ -1,21 +1,22 @@
 <?php
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-use NinjaTestEmail\Utils\Singleton;
-use NinjaTestEmail\Admin\Admin;
-use NinjaTestEmail\Frontend\Frontend;
-use NinjaTestEmail\API\Endpoints;
-use NinjaTestEmail\Utils\LogManager;
+use Ninja_KNP\Utils\Ninja_KNP_Singleton;
+use Ninja_KNP\Admin\Ninja_KNP_Admin;
+use Ninja_KNP\Frontend\Ninja_KNP_Frontend;
+use Ninja_KNP\API\Ninja_KNP_Endpoints;
+use Ninja_KNP\Utils\Ninja_KNP_Log_Manager;
 
-class Base {
-    use Singleton;
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Base')) {
+    class Ninja_KNP_Base {
+        use Ninja_KNP_Singleton;
 
     protected $loader;
     protected $version;
 
     private function __construct() {
-        $this->version = NINJA_TEST_EMAIL_VERSION;
-        $this->loader = new Loader();
+        $this->version = NINJA_KNP_VERSION;
+        $this->loader = new Ninja_KNP_Loader();
         
         $this->load_dependencies();
         $this->define_admin_hooks();
@@ -33,30 +34,30 @@ class Base {
         if (!is_admin()) {
             return;
         }
-        $admin = Admin::instance($this->loader);
+        $admin = Ninja_KNP_Admin::instance($this->loader);
     }
 
     private function define_frontend_hooks() {
         if (is_admin()) {
             return;
         }
-        $frontend = Frontend::instance($this->loader);
+        $frontend = Ninja_KNP_Frontend::instance($this->loader);
     }
 
     private function define_api_hooks() {
-        $endpoints = Endpoints::instance($this->loader);
+        $endpoints = Ninja_KNP_Endpoints::instance($this->loader);
     }
 
     private function define_logger_hooks() {
-        $logger = EmailLogger::instance($this->loader);
+        $logger = Ninja_KNP_Email_Logger::instance($this->loader);
     }
 
     private function define_cron_hooks() {
-        $this->loader->add_action('ninja_test_email_daily_cleanup', $this, 'run_daily_cleanup');
+        $this->loader->add_action('ninja_knp_daily_cleanup', $this, 'run_daily_cleanup');
     }
 
     public function run_daily_cleanup() {
-        LogManager::delete_old_logs(30);
+        Ninja_KNP_Log_Manager::delete_old_logs(30);
     }
 
     public function run() {
@@ -67,3 +68,5 @@ class Base {
         return $this->version;
     }
 }
+}
+

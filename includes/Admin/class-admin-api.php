@@ -1,18 +1,20 @@
 <?php
-namespace NinjaTestEmail\Admin;
+namespace Ninja_KNP\Admin;
 
-use NinjaTestEmail\Utils\Helpers;
-use NinjaTestEmail\Utils\LogManager;
-use NinjaTestEmail\Core\EmailTester;
+use Ninja_KNP\Utils\Ninja_KNP_Helpers;
+use Ninja_KNP\Utils\Ninja_KNP_Log_Manager;
+use Ninja_KNP\Core\Ninja_KNP_Email_Tester;
 
-class Admin_API {
+
+if (!class_exists('Ninja_KNP\Admin\Ninja_KNP_Admin_API')) {
+class Ninja_KNP_Admin_API {
     public static function get_settings($request) {
         try {
             if (!current_user_can('manage_options')) {
                 return new \WP_Error('rest_forbidden', 'Permission denied', array('status' => 403));
             }
             
-            $settings = get_option('ninja_test_email_options', array());
+            $settings = get_option('ninja_knp_options', array());
             
             if (!is_array($settings)) {
                 $settings = array();
@@ -47,10 +49,10 @@ class Admin_API {
                 return new \WP_Error('rest_invalid_data', esc_html__('Invalid settings data', 'ninja-test-email'), array('status' => 400));
             }
             
-            $sanitized_settings = Helpers::sanitize_array($settings);
-            $updated = update_option('ninja_test_email_options', $sanitized_settings);
+            $sanitized_settings = Ninja_KNP_Helpers::sanitize_array($settings);
+            $updated = update_option('ninja_knp_options', $sanitized_settings);
             
-            if ($updated || get_option('ninja_test_email_options') === $sanitized_settings) {
+            if ($updated || get_option('ninja_knp_options') === $sanitized_settings) {
                 return new \WP_REST_Response(array(
                     'success'  => true,
                     'message'  => 'Settings updated successfully',
@@ -83,9 +85,9 @@ class Admin_API {
             
             // Use EmailTester to send the email
             if ($format === 'html') {
-                $result = EmailTester::send_html_test_email($to, $subject, $message);
+                $result = Ninja_KNP_Email_Tester::send_html_test_email($to, $subject, $message);
             } else {
-                $result = EmailTester::send_test_email($to, $subject, $message);
+                $result = Ninja_KNP_Email_Tester::send_test_email($to, $subject, $message);
             }
             
             if ($result['success']) {
@@ -107,7 +109,7 @@ class Admin_API {
                 return new \WP_Error('rest_forbidden', esc_html__('Permission denied', 'ninja-test-email'), array('status' => 403));
             }
             
-            $stats = LogManager::get_statistics();
+            $stats = Ninja_KNP_Log_Manager::get_statistics();
             
             return new \WP_REST_Response(array(
                 'success' => true,
@@ -134,8 +136,8 @@ class Admin_API {
                 'page'     => isset($params['page']) ? absint($params['page']) : 1,
             );
             
-            $logs = LogManager::get_logs($args);
-            $total = LogManager::get_total_count($args['search']);
+            $logs = Ninja_KNP_Log_Manager::get_logs($args);
+            $total = Ninja_KNP_Log_Manager::get_total_count($args['search']);
             
             return new \WP_REST_Response(array(
                 'success'    => true,
@@ -162,7 +164,7 @@ class Admin_API {
                 return new \WP_Error('rest_invalid_data', esc_html__('Log ID is required', 'ninja-test-email'), array('status' => 400));
             }
             
-            $result = LogManager::delete_log($log_id);
+            $result = Ninja_KNP_Log_Manager::delete_log($log_id);
             
             if ($result) {
                 return new \WP_REST_Response(array(
@@ -176,4 +178,8 @@ class Admin_API {
             return new \WP_Error('rest_error', $e->getMessage(), array('status' => 500));
         }
     }
+}
+
+
+
 }

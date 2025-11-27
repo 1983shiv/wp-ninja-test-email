@@ -1,9 +1,11 @@
 <?php
-namespace NinjaTestEmail\Frontend;
+namespace Ninja_KNP\Frontend;
 
 use NinjaTestEmail\Utils\Helpers;
 
-class Frontend_API {
+
+if (!class_exists('Ninja_KNP\Frontend\Ninja_KNP_Frontend_API')) {
+class Ninja_KNP_Frontend_API {
     public static function get_data($request) {
         return new \WP_REST_Response(array(
             'success' => true,
@@ -22,4 +24,8 @@ class Frontend_API {
             'data'    => $data,
         ), 200);
     }
+}
+
+
+
 }

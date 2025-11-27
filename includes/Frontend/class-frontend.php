@@ -1,15 +1,17 @@
 <?php
-namespace NinjaTestEmail\Frontend;
+namespace Ninja_KNP\Frontend;
 
-use NinjaTestEmail\Utils\Singleton;
-use NinjaTestEmail\Core\Loader;
+use Ninja_KNP\Utils\Ninja_KNP_Singleton;
+use Ninja_KNP\Core\Ninja_KNP_Loader;
 
-class Frontend {
-    use Singleton;
+
+if (!class_exists('Ninja_KNP\Frontend\Ninja_KNP_Frontend')) {
+class Ninja_KNP_Frontend {
+    use Ninja_KNP_Singleton;
 
     protected $loader;
 
-    private function __construct(Loader $loader) {
+    private function __construct(Ninja_KNP_Loader $loader) {
         $this->loader = $loader;
         $this->register_hooks();
     }
@@ -28,16 +30,16 @@ class Frontend {
 
         wp_enqueue_style(
             'ninja-email-test-frontend',
-            NINJA_TEST_EMAIL_URL . 'assets/dist/css/frontend.css',
+            NINJA_KNP_URL . 'assets/dist/css/frontend.css',
             array(),
-            NINJA_TEST_EMAIL_VERSION
+            NINJA_KNP_VERSION
         );
 
         wp_enqueue_script(
             'ninja-email-test-frontend',
-            NINJA_TEST_EMAIL_URL . 'assets/dist/js/frontend.js',
+            NINJA_KNP_URL . 'assets/dist/js/frontend.js',
             array('wp-element'),
-            NINJA_TEST_EMAIL_VERSION,
+            NINJA_KNP_VERSION,
             true
         );
 
@@ -46,9 +48,9 @@ class Frontend {
             'ninjaemailtestFrontend',
             array(
                 'ajaxUrl' => admin_url('admin-ajax.php'),
-                'restUrl' => rest_url('ninja-test-email/v1'),
+                'restUrl' => rest_url('ninja-knp/v1'),
                 'nonce'   => wp_create_nonce('wp_rest'),
-                'version' => NINJA_TEST_EMAIL_VERSION,
+                'version' => NINJA_KNP_VERSION,
             )
         );
     }
@@ -64,7 +66,8 @@ class Frontend {
         );
 
         ob_start();
-        require NINJA_TEST_EMAIL_PATH . 'includes/Frontend/views/shortcode.php';
+        require NINJA_KNP_PATH . 'includes/Frontend/views/shortcode.php';
         return ob_get_clean();
     }
+}
 }

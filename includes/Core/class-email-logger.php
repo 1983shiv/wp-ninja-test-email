@@ -4,25 +4,27 @@
  * 
  * Captures and logs all outgoing emails via phpmailer_init hook
  *
- * @package NinjaTestEmail\Core
+ * @package Ninja_KNP\Core
  */
 
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-use NinjaTestEmail\Utils\Singleton;
-use NinjaTestEmail\Utils\LogManager;
+use Ninja_KNP\Utils\Ninja_KNP_Singleton;
+use Ninja_KNP\Utils\Ninja_KNP_Log_Manager;
+use Ninja_KNP\Core\Ninja_KNP_Loader;
 
-class EmailLogger {
-    use Singleton;
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Email_Logger')) {
+    class Ninja_KNP_Email_Logger {
+        use Ninja_KNP_Singleton;
 
     protected $loader;
 
     /**
      * Constructor
      *
-     * @param Loader $loader The loader instance
+     * @param Ninja_KNP_Loader $loader The loader instance
      */
-    private function __construct(Loader $loader) {
+    private function __construct(Ninja_KNP_Loader $loader) {
         $this->loader = $loader;
         $this->register_hooks();
     }
@@ -80,7 +82,7 @@ class EmailLogger {
             );
 
             // Insert log
-            $log_id = LogManager::insert_log($log_data);
+            $log_id = Ninja_KNP_Log_Manager::insert_log($log_data);
 
             if ($log_id) {
                 // Store log ID temporarily for potential status update
@@ -101,4 +103,5 @@ class EmailLogger {
         // This method can be used if we want to track failures
         // For now, we log all emails as "Sent" when they're attempted
     }
+}
 }

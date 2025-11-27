@@ -1,15 +1,18 @@
 <?php
-namespace NinjaTestEmail\Core;
+namespace Ninja_KNP\Core;
 
-class Deactivator {
-    public static function deactivate() {
+if (!class_exists('Ninja_KNP\Core\Ninja_KNP_Deactivator')) {
+    class Ninja_KNP_Deactivator {
+        public static function deactivate() {
         // Clear scheduled cron job
-        $timestamp = wp_next_scheduled('ninja_test_email_daily_cleanup');
+        $timestamp = wp_next_scheduled('ninja_knp_daily_cleanup');
         if ($timestamp) {
-            wp_unschedule_event($timestamp, 'ninja_test_email_daily_cleanup');
+            wp_unschedule_event($timestamp, 'ninja_knp_daily_cleanup');
         }
         
         flush_rewrite_rules();
-        do_action('ninja_test_email_deactivated');
+        do_action('ninja_knp_deactivated');
     }
 }
+}
+
