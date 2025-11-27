@@ -21,6 +21,15 @@ class Endpoints {
         $this->loader->add_action('rest_api_init', $this, 'register_routes');
     }
 
+    /**
+     * Check if user has admin permissions
+     *
+     * @return bool
+     */
+    public function check_admin_permission() {
+        return current_user_can('manage_options');
+    }
+
     public function register_routes() {
         register_rest_route(
             $this->namespace,
@@ -39,16 +48,12 @@ class Endpoints {
                 array(
                     'methods'             => 'GET',
                     'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_settings'),
-                    'permission_callback' => function() {
-                        return current_user_can('manage_options');
-                    },
+                    'permission_callback' => array($this, 'check_admin_permission'),
                 ),
                 array(
                     'methods'             => 'POST',
                     'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'update_settings'),
-                    'permission_callback' => function() {
-                        return current_user_can('manage_options');
-                    },
+                    'permission_callback' => array($this, 'check_admin_permission'),
                 ),
             )
         );
@@ -59,9 +64,7 @@ class Endpoints {
             array(
                 'methods'             => 'POST',
                 'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'send_test_email'),
-                'permission_callback' => function() {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
 
@@ -71,9 +74,7 @@ class Endpoints {
             array(
                 'methods'             => 'GET',
                 'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_log_statistics'),
-                'permission_callback' => function() {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
 
@@ -83,21 +84,17 @@ class Endpoints {
             array(
                 'methods'             => 'GET',
                 'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'get_logs'),
-                'permission_callback' => function() {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
 
         register_rest_route(
             $this->namespace,
-            '/logs/(?P<id>\d+)',
+            '/logs/(?P<id>\\d+)',
             array(
                 'methods'             => 'DELETE',
                 'callback'            => array('NinjaTestEmail\\Admin\\Admin_API', 'delete_log'),
-                'permission_callback' => function() {
-                    return current_user_can('manage_options');
-                },
+                'permission_callback' => array($this, 'check_admin_permission'),
             )
         );
 

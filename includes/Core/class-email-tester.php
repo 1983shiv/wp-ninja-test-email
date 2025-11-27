@@ -12,6 +12,15 @@ namespace NinjaTestEmail\Core;
 class EmailTester {
     
     /**
+     * Set email content type to HTML
+     *
+     * @return string
+     */
+    public static function set_html_content_type() {
+        return 'text/html';
+    }
+
+    /**
      * Send a test email
      *
      * @param string $to Recipient email address
@@ -157,17 +166,13 @@ class EmailTester {
         $message = wp_kses_post($message);
 
         // Set content type to HTML
-        add_filter('wp_mail_content_type', function() {
-            return 'text/html';
-        });
+        add_filter('wp_mail_content_type', array(__CLASS__, 'set_html_content_type'));
 
         // Attempt to send email
         $sent = wp_mail($to, $subject, $message);
 
         // Reset content type
-        remove_filter('wp_mail_content_type', function() {
-            return 'text/html';
-        });
+        remove_filter('wp_mail_content_type', array(__CLASS__, 'set_html_content_type'));
 
         if ($sent) {
             return array(
