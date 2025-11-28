@@ -1,6 +1,6 @@
 === Ninja Test Email ===
-Contributors: shivknp
-Donate link: https://github.com/1983shiv/ninja-test-email
+Contributors: shivknp 
+Donate link: https://github.com/1983shiv/wp-ninja-test-email
 Tags: email, test-email, smtp, email-logging, email-testing
 Requires at least: 6.0
 Tested up to: 6.8

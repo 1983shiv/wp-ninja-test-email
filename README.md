@@ -1,6 +1,6 @@
 # Ninja Test Email
 
-**Contributors:** shivknp
+**Contributors:** shivknp 
 **Tags:** email, test-email, smtp, email-logging, email-testing  
 **Requires at least:** 6.0  
 **Tested up to:** 6.8  
@@ -8,7 +8,7 @@
 **Stable tag:** 1.0.0  
 **License:** GPL-2.0-or-later  
 **License URI:** https://www.gnu.org/licenses/gpl-2.0.html
-**Donate link:** https://github.com/1983shiv/ninja-test-email
+**Donate link:** https://github.com/1983shiv/wp-ninja-test-email
 
 Test your WordPress email configuration with detailed logging, statistics, and a modern React-powered interface.
 

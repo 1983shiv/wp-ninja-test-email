@@ -23,7 +23,9 @@ module.exports = function(grunt) {
                     '!composer.lock',
                     '!postcss.config.js',
                     '!test-settings.php',
-                    '!assets/tailwind.config.js'
+                    '!assets/tailwind.config.js',
+                    '!update-prefixes.ps1',
+                    '!fix-line-endings.ps1'
                 ],
                 dest: 'build/ninja-test-email/'
             },
@@ -46,7 +48,9 @@ module.exports = function(grunt) {
                     '!composer.lock',
                     '!postcss.config.js',
                     '!test-settings.php',
-                    '!assets/tailwind.config.js'
+                    '!assets/tailwind.config.js',
+                    '!update-prefixes.ps1',
+                    '!fix-line-endings.ps1'
                 ],
                 dest: 'E:/local-sites/app/public/wp-content/plugins/ninja-test-email'
             }
