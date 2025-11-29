@@ -5,7 +5,7 @@ Tags: email, test-email, smtp, email-logging, email-testing
 Requires at least: 6.0
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPL-2.0-or-later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -215,6 +215,14 @@ PHP 7.4 or higher is required. The plugin uses modern PHP features and follows W
 
 == Changelog ==
 
+= 1.1.1 =
+* Fixed email status tracking - failed emails now correctly show "Failed" status instead of "Sent"
+* Implemented proper email lifecycle tracking: Pending → Sent/Failed
+* Added color-coded status badges (red for Failed, green for Sent, yellow for Pending)
+* Improved email logger to use WordPress hooks: phpmailer_init, wp_mail, and wp_mail_failed
+* Enhanced error message visibility with red background for failed emails
+* Updated email logs table and modal to display accurate status with appropriate colors
+
 = 1.1.0 =
 * Removed the settings page to simplify the plugin interface and reduce redundancy.
 * Updated admin navigation and UI to reflect the removal of the settings page.
@@ -256,6 +264,12 @@ PHP 7.4 or higher is required. The plugin uses modern PHP features and follows W
 * Action and filter hooks for developers
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Important bug fix: Email status tracking now works correctly. Failed emails will show "Failed" status instead of incorrectly showing "Sent". Upgrade recommended for accurate email monitoring.
+
+= 1.1.0 =
+Settings page removed for a cleaner interface. Log retention defaults to 30 days. Upgrade for improved performance and simplified UI.
 
 = 1.0.0 =
 Initial release. Install to start testing and monitoring your WordPress email functionality with detailed logs and statistics.

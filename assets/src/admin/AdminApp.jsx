@@ -202,7 +202,13 @@ const LogsViewer = ({ restUrl, nonce }) => {
                                             {log.subject.length > 50 ? log.subject.substring(0, 50) + '...' : log.subject}
                                         </td>
                                         <td className="nin-px-6 nin-py-4 nin-whitespace-nowrap">
-                                            <span className="nin-px-2 nin-inline-flex nin-text-xs nin-leading-5 nin-font-semibold nin-rounded-full nin-bg-green-100 nin-text-green-800">
+                                            <span className={`nin-px-2 nin-inline-flex nin-text-xs nin-leading-5 nin-font-semibold nin-rounded-full ${
+                                                log.status === 'Failed' 
+                                                    ? 'nin-bg-red-100 nin-text-red-800'
+                                                    : log.status === 'Sent'
+                                                    ? 'nin-bg-green-100 nin-text-green-800'
+                                                    : 'nin-bg-yellow-100 nin-text-yellow-800'
+                                            }`}>
                                                 {log.status}
                                             </span>
                                         </td>
@@ -285,7 +291,13 @@ const LogsViewer = ({ restUrl, nonce }) => {
                             
                             <div>
                                 <label className="nin-block nin-text-sm nin-font-medium nin-text-gray-700 nin-mb-1">Status</label>
-                                <span className="nin-px-2 nin-inline-flex nin-text-xs nin-leading-5 nin-font-semibold nin-rounded-full nin-bg-green-100 nin-text-green-800">
+                                <span className={`nin-px-2 nin-inline-flex nin-text-xs nin-leading-5 nin-font-semibold nin-rounded-full ${
+                                    selectedLog.status === 'Failed'
+                                        ? 'nin-bg-red-100 nin-text-red-800'
+                                        : selectedLog.status === 'Sent'
+                                        ? 'nin-bg-green-100 nin-text-green-800'
+                                        : 'nin-bg-yellow-100 nin-text-yellow-800'
+                                }`}>
                                     {selectedLog.status}
                                 </span>
                             </div>

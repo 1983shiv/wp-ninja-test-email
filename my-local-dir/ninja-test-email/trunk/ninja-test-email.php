@@ -3,7 +3,7 @@
  * Plugin Name: Ninja Test Email
  * Plugin URI: https://github.com/1983shiv/ninja-test-email
  * Description: Modern WP Test Email Plugin
- * Version: 1.1.0
+ * Version: 1.1.1
  * Author: Shiv Srivastava
  * Author URI: https://github.com/1983shiv
  * License: GPL v2 or later
@@ -20,7 +20,7 @@ if (!defined('WPINC')) {
     die;
 }
 
-define('NINJA_KNP_VERSION', '1.1.0');
+define('NINJA_KNP_VERSION', '1.1.1');
 define('NINJA_KNP_PATH', plugin_dir_path(__FILE__));
 define('NINJA_KNP_URL', plugin_dir_url(__FILE__));
 define('NINJA_KNP_FILE', __FILE__);
