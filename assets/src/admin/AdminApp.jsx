@@ -126,7 +126,13 @@ const LogsViewer = ({ restUrl, nonce }) => {
             </div>
 
             {message && (
-                <div className="nin-mb-4 nin-p-4 nin-bg-green-100 nin-border nin-border-green-400 nin-text-green-700 nin-rounded">
+                <div className={`nin-mb-4 nin-p-4 nin-rounded ${
+                    message.toLowerCase().includes('error') || 
+                    message.toLowerCase().includes('failed') ||
+                    message.toLowerCase().includes('fail')
+                        ? 'nin-bg-red-100 nin-border nin-border-red-400 nin-text-red-700'
+                        : 'nin-bg-green-100 nin-border nin-border-green-400 nin-text-green-700'
+                }`}>
                     {message}
                 </div>
             )}
@@ -312,7 +318,6 @@ const LogsViewer = ({ restUrl, nonce }) => {
 };
 
 const AdminApp = () => {
-    const [settings, setSettings] = useState({});
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState('');
     const [logStats, setLogStats] = useState({
@@ -332,8 +337,8 @@ const AdminApp = () => {
     const { restUrl, nonce, currentPage } = window.ninjaemailtestAdmin || {};
     
     useEffect(() => {
-        fetchSettings();
         fetchLogStats();
+        setLoading(false);
         // Set default recipient to current user's email if available
         if (window.ninjaemailtestAdmin && window.ninjaemailtestAdmin.userEmail) {
             setTestEmail(prev => ({ ...prev, to: window.ninjaemailtestAdmin.userEmail }));
@@ -351,67 +356,6 @@ const AdminApp = () => {
             }
         } catch (error) {
             console.error('Error fetching log stats:', error);
-        }
-    };
-    
-    const fetchSettings = async () => {
-        try {
-            const response = await fetch(`${restUrl}/admin/settings`, {
-                headers: { 'X-WP-Nonce': nonce }
-            });
-            const data = await response.json();
-            if (data.success) {
-                setSettings(data.settings);
-            }
-        } catch (error) {
-            console.error('Error fetching settings:', error);
-        } finally {
-            setLoading(false);
-        }
-    };
-    
-    const saveSettings = async () => {
-        setLoading(true);
-        try {
-            const response = await fetch(`${restUrl}/admin/settings`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': nonce
-                },
-                body: JSON.stringify(settings)
-            });
-            const data = await response.json();
-            if (data.success) {
-                setMessage('Settings saved successfully!');
-                setTimeout(() => setMessage(''), 3000);
-            }
-        } catch (error) {
-            console.error('Error saving settings:', error);
-            setMessage('Error saving settings');
-        } finally {
-            setLoading(false);
-        }
-    };
-    
-    const saveSettingsWithData = async (newSettings) => {
-        try {
-            const response = await fetch(`${restUrl}/admin/settings`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': nonce
-                },
-                body: JSON.stringify(newSettings)
-            });
-            const data = await response.json();
-            if (data.success) {
-                setMessage('Settings updated!');
-                setTimeout(() => setMessage(''), 2000);
-            }
-        } catch (error) {
-            console.error('Error saving settings:', error);
-            setMessage('Error saving settings');
         }
     };
 
@@ -465,20 +409,21 @@ const AdminApp = () => {
                 <LogsViewer restUrl={restUrl} nonce={nonce} />
             ) : (
                 <>
-                    <div className="nin-mb-8">
-                        <h2 className="nin-text-2xl nin-font-bold nin-text-gray-800">
-                            {currentPage === 'ninja-email-test-settings' ? 'Ninja Email Test Settings' : 'Ninja Email Test Dashboard'}
-                        </h2>
-                        <p className="nin-text-gray-600 nin-mt-2">
-                            {currentPage === 'ninja-email-test-settings' 
-                                ? 'Configure your plugin settings and preferences'
-                                : 'Manage your plugin settings and configuration'
-                            }
-                        </p>
-                    </div>
-                    
-                    {message && (
-                        <div className="nin-mb-4 nin-p-4 nin-bg-green-100 nin-border nin-border-green-400 nin-text-green-700 nin-rounded">
+                <div className="nin-mb-8">
+                    <h2 className="nin-text-2xl nin-font-bold nin-text-gray-800">
+                        Ninja Email Test Dashboard
+                    </h2>
+                    <p className="nin-text-gray-600 nin-mt-2">
+                        Send test emails and monitor your WordPress email configuration
+                    </p>
+                </div>                    {message && (
+                        <div className={`nin-mb-4 nin-p-4 nin-rounded ${
+                            message.toLowerCase().includes('error') || 
+                            message.toLowerCase().includes('failed') ||
+                            message.toLowerCase().includes('fail')
+                                ? 'nin-bg-red-100 nin-border nin-border-red-400 nin-text-red-700'
+                                : 'nin-bg-green-100 nin-border nin-border-green-400 nin-text-green-700'
+                        }`}>
                             {message}
                         </div>
                     )}
@@ -588,58 +533,6 @@ const AdminApp = () => {
                         </div>
                     </div>
                 </>
-            )}
-            
-            {currentPage === 'ninja-email-test-settings' && (
-                <div className="nin-bg-white nin-shadow nin-rounded-lg nin-p-6">
-                    <h3 className="nin-text-xl nin-font-semibold nin-mb-4">Settings</h3>
-                    <div className="nin-space-y-4">
-                        <div>
-                            <label className="nin-block nin-mb-2 nin-font-medium">
-                                Admin Capability
-                            </label>
-                            <input
-                                type="text"
-                                value={settings.admin_capability || 'manage_options'}
-                                onChange={(e) => setSettings({...settings, admin_capability: e.target.value})}
-                                className="nin-w-full nin-px-3 nin-py-2 nin-border nin-rounded"
-                            />
-                        </div>
-                        
-                        <button
-                            onClick={saveSettings}
-                            disabled={loading}
-                            className="nin-px-4 nin-py-2 nin-bg-blue-600 nin-text-white nin-rounded hover:nin-bg-blue-700 disabled:nin-opacity-50"
-                        >
-                            {loading ? 'Saving...' : 'Save Settings'}
-                        </button>
-                    </div>
-                    
-                    <div className="nin-mt-8 nin-border-t nin-pt-6">
-                        <h4 className="nin-text-lg nin-font-semibold nin-mb-4">Plugin Options Inspector</h4>
-                        <div className="nin-bg-gray-50 nin-p-4 nin-rounded nin-border">
-                            <div className="nin-mb-4">
-                                <label className="nin-flex nin-items-center nin-space-x-2">
-                                    <input
-                                        type="checkbox"
-                                        checked={settings.enabled || false}
-                                        onChange={(e) => {
-                                            const newSettings = {...settings, enabled: e.target.checked};
-                                            setSettings(newSettings);
-                                            // Auto-save when toggled
-                                            saveSettingsWithData(newSettings);
-                                        }}
-                                        className="nin-rounded"
-                                    />
-                                    <span className="nin-font-medium">Enable Plugin</span>
-                                </label>
-                            </div>
-                            <p className="nin-text-sm nin-text-gray-600 nin-mb-2">Current plugin options stored in database:</p>
-                            <pre className="nin-text-xs nin-bg-white nin-p-3 nin-rounded nin-border nin-overflow-x-auto">{JSON.stringify(settings, null, 2)}</pre>
-                            <p className="nin-text-xs nin-text-gray-500 nin-mt-2">Option key: <code>ninja_test_email_options</code></p>
-                        </div>
-                    </div>
-                </div>
             )}
                 </>
             )}

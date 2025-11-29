@@ -9,7 +9,9 @@ module.exports = function(grunt) {
                 src: [
                     '**',
                     '!node_modules/**',
+                    '!my-local-dir/**',
                     '!assets/src/**',
+                    '!assets/images/**',
                     '!build/**',
                     '!.git/**',
                     '!.gitignore',
@@ -34,7 +36,9 @@ module.exports = function(grunt) {
                 src: [
                     '**',
                     '!node_modules/**',
+                    '!my-local-dir/**',
                     '!assets/src/**',
+                    '!assets/images/**',
                     '!build/**',
                     '!.git/**',
                     '!.gitignore',

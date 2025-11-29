@@ -1,0 +1,131 @@
+# Ninja Test Email Translation Template
+# Copyright (C) 2025 Shiv Srivastava
+# This file is distributed under the GPL v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Ninja Test Email 1.0.0\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/ninja-test-email\n"
+"POT-Creation-Date: 2025-11-15 00:00+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: includes/Admin/class-admin.php:26 includes/Admin/class-admin.php:27
+msgid "Ninja Email Test"
+msgstr ""
+
+#: includes/Admin/class-admin.php:37 includes/Admin/class-admin.php:38
+msgid "Dashboard"
+msgstr ""
+
+#: includes/Admin/class-admin.php:46 includes/Admin/class-admin.php:47
+msgid "Settings"
+msgstr ""
+
+#: includes/Admin/class-admin.php:55 includes/Admin/class-admin.php:56
+msgid "Email Logs"
+msgstr ""
+
+#: includes/Admin/class-admin.php:84
+#, php-format
+msgid "Cron Status: Daily cleanup is scheduled. Next run: %s"
+msgstr ""
+
+#: includes/Admin/class-admin.php:88
+msgid "Warning: Daily cleanup cron is not scheduled. It should auto-schedule on next page load."
+msgstr ""
+
+#: includes/Admin/views/admin-page.php:9
+msgid "JavaScript is required to use this admin interface."
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:21
+#: includes/Admin/class-admin-api.php:40
+#: includes/Admin/class-admin-api.php:70
+#: includes/Admin/class-admin-api.php:107
+#: includes/Admin/class-admin-api.php:124
+#: includes/Admin/class-admin-api.php:156
+msgid "Permission denied"
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:47
+msgid "Invalid settings data"
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:76
+msgid "Recipient email is required"
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:162
+msgid "Log ID is required"
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:170
+msgid "Log deleted successfully"
+msgstr ""
+
+#: includes/Admin/class-admin-api.php:173
+msgid "Failed to delete log"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:32
+#, php-format
+msgid "Test Email from %s"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:51
+#, php-format
+msgid "Test email sent successfully to %s"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:57
+msgid "Failed to send test email. Please check your email configuration."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:76
+msgid "Email address is required."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:83
+msgid "Invalid email address format."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:100
+#, php-format
+msgid "This is a test email sent from your WordPress site.\\n\\nSite: %1$s\\nURL: %2$s\\nTime: %3$s\\n\\nIf you received this email, your WordPress installation can send emails successfully."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:148
+#, php-format
+msgid "HTML test email sent successfully to %s"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:154
+msgid "Failed to send HTML test email. Please check your email configuration."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:201
+#, php-format
+msgid "Test Email from %s"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:202
+msgid "Site URL:"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:203
+msgid "Sent at:"
+msgstr ""
+
+#: includes/Core/class-email-tester.php:205
+msgid "If you received this email, your WordPress installation can send emails successfully."
+msgstr ""
+
+#: includes/Core/class-email-tester.php:209
+#, php-format
+msgid "This email was sent by the Ninja Test Email plugin from %s"
+msgstr ""
